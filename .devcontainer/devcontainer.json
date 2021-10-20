@@ -16,6 +16,7 @@
     }
   },
   "mounts": [
+    // prettier-ignore
     "type=bind,source=C:\\Program\ Files\ (x86)\\Steam\\steamapps\\common\\Path\ of\ Exile,target=/poe,readonly"
   ],
 
@@ -42,7 +43,8 @@
     "ms-python.vscode-pylance",
     "mikestead.dotenv",
     "editorconfig.editorconfig",
-    "mutantdino.resourcemonitor"
+    "mutantdino.resourcemonitor",
+    "github.vscode-pull-request-github"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
