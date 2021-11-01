@@ -62,6 +62,7 @@ WIKIS = {
     'German': 'pathofexile.fandom.com/de',
     'French': 'pathofexile.fandom.com/fr',
     'Spanish': 'pathofexile.fandom.com/es',
+    'Local': None
 }
 
 # =============================================================================
@@ -96,6 +97,13 @@ class WikiHandler:
             default=0,
         )
 
+        parser.add_argument(
+            '-w-url', '--wiki-url',
+            dest='wiki_url',
+            help='The base url to the wiki you want to update, if not using one of the predefined wikis',
+            default=''
+        )
+
     def _error_catcher(self, *args, **kwargs):
         fail = 1
         while fail > 0:
@@ -113,7 +121,7 @@ class WikiHandler:
                     console(e.args[0], Msg.error)
                     console('Retrying in 30s- total attempts: %s' % fail)
                     time.sleep(30)
-                    fail +=1
+                    fail += 1
                 else:
                     console(
                         'HTTPError occurred. Retrying - total attempts: %s' %
@@ -199,13 +207,13 @@ class WikiHandler:
                     summary='PyPoE/ExporterBot/%s: %s' % (
                         __version__,
                         self.cmdargs.wiki_message or row['wiki_message']
-                     )
+                    )
                 )
                 if response['result'] == 'Success':
                     console('Page was edited successfully (time: %s)' %
                             response.get('newtimestamp'))
                 else:
-                    #TODO: what happens if it fails?
+                    # TODO: what happens if it fails?
                     console('Something went wrong, status code:', msg=Msg.error)
                     console(response, msg=Msg.error)
         else:
@@ -216,7 +224,7 @@ class WikiHandler:
 
     def handle(self, *a, mwclient, result, cmdargs, parser):
         # First row is handled separately to prompt the user for his password
-        url = WIKIS.get(config.get_option('language'))
+        url = WIKIS.get(config.get_option('language')) or cmdargs.wiki_url
         if url is None:
             console(
                 'There is no wiki defined for language "%s"' % cmdargs.language,
@@ -425,7 +433,8 @@ class ExporterHandler(BaseHandler):
                 wiki_handler = WikiHandler()
             wiki_handler.add_arguments(parser)
 
-        parser.set_defaults(func=self.get_wrap(cls, func, handler, wiki_handler))
+        parser.set_defaults(func=self.get_wrap(
+            cls, func, handler, wiki_handler))
         parser.add_argument(
             '-d', '--outdir',
             help='Destination directory. If empty, uses current directory.'

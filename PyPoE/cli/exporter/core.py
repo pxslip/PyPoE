@@ -86,7 +86,7 @@ def setup_config():
     config.add_option('language',
                       'option("English", "French", "German", "Portuguese",'
                       '"Russian", "Spanish", "Thai", "Simplified Chinese",'
-                      '"Traditional Chinese", "Korean", default="English")')
+                      '"Traditional Chinese", "Korean", "Local", default="English")')
 
 
 def main():
@@ -107,6 +107,7 @@ def main():
 
     # Execute
     run(main_parser, config)
+
 
 if __name__ == '__main__':
     main()
