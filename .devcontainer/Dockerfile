@@ -23,5 +23,5 @@ RUN apt-get update\
     && apt-get -y autoclean
 
 # Re-add if UI work needs to be done
-# RUN apt-get update\
-#     && apt-get install -y python-pyside
+RUN apt-get update\
+    && apt-get install -y imagemagick

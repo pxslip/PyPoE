@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.202.3/containers/python-3
 {
-  "name": "Python 3",
+  "name": "PyPoE",
   "runArgs": ["--init"],
   "build": {
     "dockerfile": "Dockerfile",
@@ -17,7 +17,8 @@
   },
   "mounts": [
     // prettier-ignore
-    "type=bind,source=C:\\Program\ Files\ (x86)\\Steam\\steamapps\\common\\Path\ of\ Exile,target=/poe,readonly"
+    "type=bind,source=${localEnv:POE_INSTALL_PATH},target=/poe,readonly"
+    // "type=bind,source=C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile,target=/poe,readonly"
   ],
 
   // Set *default* container specific settings.json values on container create.
