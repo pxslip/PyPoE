@@ -16,7 +16,6 @@
     }
   },
   "mounts": [
-    // prettier-ignore
     "type=bind,source=${localEnv:POE_INSTALL_PATH},target=/poe,readonly"
     // "type=bind,source=C:\\Program Files (x86)\\Steam\\steamapps\\common\\Path of Exile,target=/poe,readonly"
   ],
