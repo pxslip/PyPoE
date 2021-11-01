@@ -24,20 +24,22 @@ RUN export DEBIAN_FRONTEND=noninteractive\
 
 ### Install pypoe
 ARG PYPOE_TAG=dev
-COPY . /tmp/pypoe
-RUN cd /tmp/pypoe\
+COPY . /pypoe
+WORKDIR /pypoe
+RUN pip install --upgrade pip\
     && pip install -U pip setuptools\
     && pip install -U -r test_requirements.txt\
-    && pip install -U -e .[full]\
-    && cd /\
-    && rm -rf /tmp/pypoe\
+    && pip install -U -e .[cli]\
     && mkdir /output\
     && pypoe_exporter config set out_dir /output\
     && mkdir /tmp/pypoe-temp\
     && pypoe_exporter config set temp_dir /tmp/pypoe-temp\
+    && mkdir /poe-data\
     && pypoe_exporter config set ggpk_path /poe-data\
     && pypoe_exporter setup perform
 
-VOLUME [ "/output" ]
+WORKDIR /output
+
+VOLUME [ "/poe-data", "/output" ]
 
 ENTRYPOINT [ "pypoe_exporter" ]
